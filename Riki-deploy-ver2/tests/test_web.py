@@ -6,7 +6,6 @@ from flask import current_app
 from flask import Flask
 from flask import g
 from flask import app
-from wiki.web.forms import URLForm
 from wiki.web.user import UserManager
 from wiki.web.user import User
 class WebContentTestCase(WikiBaseTestCase):
@@ -30,53 +29,61 @@ class TestUserManager(WebContentTestCase):
 
     def setUp(self):
         super(TestUserManager, self).setUp()
-        self.file = os.path.join(TEST_FILE_PATH, 'users.json')
 
     def test_invalid_authentication_method(self):
         m = UserManager(TEST_FILE_PATH)
         self.assertRaises(NotImplementedError, m.add_user, m, 'bobby', 12345, authentication_method='this will cause an error')
 
     def test_read(self):
-        self.fail()
-
-    def test_write(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        self.assertIsNotNone(m.read)
 
     def test_add_user(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        self.assertIsNotNone(m.add_user('nick', 'securepassword', authentication_method='hash'))
 
     def test_get_user(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        self.assertIsNotNone(m.get_user('name'))
 
     def test_delete_user(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        m.add_user('nick', 'securepassword', authentication_method='hash')
+        self.assertTrue(m.delete_user('nick'))
 
-    def test_update(self):
-        self.fail()
 
-'''
 class TestUser(WebContentTestCase):
+    def setUp(self):
+        super(TestUser, self).setUp()
+
     def test_get(self):
-        self.fail()
-
-    def test_set(self):
-        self.fail()
-
-    def test_save(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        u = m.get_user('name')
+        self.assertIsNotNone(u.get('password'))
 
     def test_is_authenticated(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        u = m.get_user('name')
+        self.assertTrue(u.is_authenticated())
 
     def test_is_active(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        u = m.get_user('name')
+        self.assertTrue(u.is_active())
 
     def test_is_anonymous(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        u = m.get_user('name')
+        self.assertFalse(u.is_anonymous())
 
     def test_get_id(self):
-        self.fail()
+        m = UserManager(TEST_FILE_PATH)
+        u = m.get_user('name')
+        self.assertEqual('name', u.get_id())
 
     def test_check_password(self):
-        self.fail()
-'''
+        m = UserManager(TEST_FILE_PATH)
+        u = m.get_user('name')
+        self.assertTrue(u.check_password('1234'))
+        self.assertFalse(u.check_password('dingdong'))
+
