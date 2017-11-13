@@ -8,6 +8,7 @@ from flask import g
 from flask import app
 from wiki.web.forms import URLForm
 from wiki.web.user import UserManager
+from wiki.web.user import User
 class WebContentTestCase(WikiBaseTestCase):
     """
         Various test cases around web content.
@@ -22,23 +23,18 @@ class WebContentTestCase(WikiBaseTestCase):
         assert b"You did not create any content yet." in rsp.data
         assert rsp.status_code == 200
 
-class TestURLForm(WebContentTestCase):
-    '''def test_validate_url(self):
-            form = URLForm()
-            assert URLForm.validate_url(form,'home')
-        '''
-    def test_clean_url(self):
-            url = '/home'
-            assert URLForm.clean_url(URLForm(), url) == url
 
-class TestLoginForm(WebContentTestCase):
-    def test_validate_name(self):
-        self.fail()
-
-    def test_validate_password(self):
-        self.fail()
+TEST_FILE_PATH = '/Users/Nick/Documents/GitHub/SEWiki/Riki-deploy-ver2/tests/'
 
 class TestUserManager(WebContentTestCase):
+
+    def setUp(self):
+        super(TestUserManager, self).setUp()
+        self.file = os.path.join(TEST_FILE_PATH, 'users.json')
+
+    def test_invalid_authentication_method(self):
+        m = UserManager(TEST_FILE_PATH)
+        self.assertRaises(NotImplementedError, m.add_user, m, 'bobby', 12345, authentication_method='this will cause an error')
 
     def test_read(self):
         self.fail()
@@ -50,8 +46,7 @@ class TestUserManager(WebContentTestCase):
         self.fail()
 
     def test_get_user(self):
-        um = UserManager(current_app.config['USER_DIR'])
-        self.assertIsNotNone(um.get_user('sam'))
+        self.fail()
 
     def test_delete_user(self):
         self.fail()
@@ -59,6 +54,7 @@ class TestUserManager(WebContentTestCase):
     def test_update(self):
         self.fail()
 
+'''
 class TestUser(WebContentTestCase):
     def test_get(self):
         self.fail()
@@ -83,3 +79,4 @@ class TestUser(WebContentTestCase):
 
     def test_check_password(self):
         self.fail()
+'''
