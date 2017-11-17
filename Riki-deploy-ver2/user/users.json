@@ -1,6 +1,6 @@
 {
   "name": {
-    "authenticated": false, 
+    "authenticated": true, 
     "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
