@@ -132,6 +132,9 @@ def search():
 
 @bp.route('/user/login/', methods=['GET', 'POST'])
 def user_login():
+    if current_user.is_active:
+        return redirect(request.args.get("next") or url_for('wiki.index'))
+
     form = LoginForm()
     if form.is_submitted():
         if not form.validate_name(form.name):
@@ -143,6 +146,7 @@ def user_login():
                 user = current_users.get_user(form.name.data)
                 login_user(user)
                 user.set('authenticated', True)
+                user.set('active', True)
                 flash('Login successful.', 'success')
                 return redirect(request.args.get("next") or url_for('wiki.index'))
     return render_template('login.html', form=form)
@@ -151,6 +155,7 @@ def user_login():
 @login_required
 def user_logout():
     current_user.set('authenticated', False)
+    current_user.set('active', False)
     logout_user()
     flash('Logout successful.', 'success')
     return redirect(url_for('wiki.user_login'))
