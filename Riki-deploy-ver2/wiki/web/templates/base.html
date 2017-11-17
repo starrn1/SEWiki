@@ -30,8 +30,10 @@
 									<li><a href="{{ url_for('wiki.user_login') }}">Login</a></li>
 								{% else %}
 									<li><a href="{{ url_for('wiki.user_logout') }}">Logout</a></li>
+									<li><a href="{{ url_for('wiki.admin') }}">Edit Users</a></li>
 								{% endif %}
 							</ul>
+
 						</div>
 					</div>
 				</div>
