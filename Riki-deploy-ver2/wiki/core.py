@@ -237,6 +237,17 @@ class Page(object):
     def tags(self, value):
         self['tags'] = value
 
+    @property
+    def viewBy(self):
+        try:
+            return self['viewBy']
+        except KeyError:
+            return ""
+
+    @viewBy.setter
+    def viewBy(self, value):
+        self['viewBy'] = value
+
 
 class Wiki(object):
     def __init__(self, root):

@@ -64,6 +64,7 @@ def create():
 def edit(url):
     page = current_wiki.get(url)
     form = EditorForm(obj=page)
+
     if form.validate_on_submit():
         if not page:
             page = current_wiki.get_bare(url)
@@ -132,14 +133,19 @@ def search():
 @bp.route('/user/login/', methods=['GET', 'POST'])
 def user_login():
     form = LoginForm()
-    if form.validate_on_submit():
-        user = current_users.get_user(form.name.data)
-        login_user(user)
-        user.set('authenticated', True)
-        flash('Login successful.', 'success')
-        return redirect(request.args.get("next") or url_for('wiki.index'))
+    if form.is_submitted():
+        if not form.validate_name(form.name):
+            flash("That user does not exist.", 'error')
+        else:
+            if not form.validate_password(form.password):
+                flash("Incorrect password.",'error')
+            else:
+                user = current_users.get_user(form.name.data)
+                login_user(user)
+                user.set('authenticated', True)
+                flash('Login successful.', 'success')
+                return redirect(request.args.get("next") or url_for('wiki.index'))
     return render_template('login.html', form=form)
-
 
 @bp.route('/user/logout/')
 @login_required
@@ -147,7 +153,7 @@ def user_logout():
     current_user.set('authenticated', False)
     logout_user()
     flash('Logout successful.', 'success')
-    return redirect(url_for('wiki.index'))
+    return redirect(url_for('wiki.user_login'))
 
 
 @bp.route('/user/')

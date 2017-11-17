@@ -47,11 +47,13 @@ class LoginForm(Form):
     def validate_name(form, field):
         user = current_users.get_user(field.data)
         if not user:
-            raise ValidationError('This username does not exist.')
+            return False
+        return True
 
     def validate_password(form, field):
         user = current_users.get_user(form.name.data)
         if not user:
-            return
+            return False
         if not user.check_password(field.data):
-            raise ValidationError('Username and password do not match.')
+            return False
+        return True
