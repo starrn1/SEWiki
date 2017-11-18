@@ -8,6 +8,5 @@ content/
 .eggs
 *.egg-info
 dist/
-Riki-deploy-ver2/Riki-deploy-ver2.iml
 Riki-deploy-ver2/.idea/misc.xml
 Riki-deploy-ver2/config.py
