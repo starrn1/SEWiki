@@ -160,6 +160,22 @@ def user_logout():
     flash('Logout successful.', 'success')
     return redirect(url_for('wiki.user_login'))
 
+@bp.route('/admin/')
+def admin_page():
+    users = {}
+    x = current_users.read()    #returns a dict object with unicode values
+
+    for key, values in x.items():
+        name = key.encode('ascii', 'ignore')
+        current_data = (values[u'password']).encode('ascii', 'ignore')
+        users[name] = current_data
+        #users.append(key.encode('ascii', 'ignore'))
+        #usersdata.append(data.encode('ascii', 'ignore'))
+        #users.add(key.encode('ascii', 'ignore'))
+
+    return render_template('admin_page.html', users=users)
+
+
 
 @bp.route('/user/')
 def user_index():
