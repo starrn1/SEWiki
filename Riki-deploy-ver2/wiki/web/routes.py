@@ -68,12 +68,27 @@ def edit(url):
     if form.validate_on_submit():
         if not page:
             page = current_wiki.get_bare(url)
+        form.tags.data = cleanTags(form)
         form.populate_obj(page)
         page.save()
         flash('"%s" was saved.' % page.title, 'success')
         return redirect(url_for('wiki.display', url=url))
     return render_template('editor.html', form=form, page=page)
 
+def cleanTags(form):
+    tags = form.tags.data.encode('utf-8').split(',')
+    cleantags = tags
+    for item in cleantags:
+        if cleantags.count(item) > 1:
+            redundantTags = cleantags.count(item) - 1
+            while (redundantTags > 0):
+                cleantags.remove(item)
+                redundantTags -= 1
+    cleantags = sorted(cleantags, key=str.upper)
+    inputstring = ""
+    for item in cleantags:
+        inputstring += item + ','
+    return inputstring[:-1]
 
 @bp.route('/preview/', methods=['POST'])
 @protect
@@ -159,6 +174,22 @@ def user_logout():
     logout_user()
     flash('Logout successful.', 'success')
     return redirect(url_for('wiki.user_login'))
+
+@bp.route('/admin/')
+def admin_page():
+    users = {}
+    x = current_users.read()    #returns a dict object with unicode values
+
+    for key, values in x.items():
+        name = key.encode('ascii', 'ignore')
+        current_data = (values[u'password']).encode('ascii', 'ignore')
+        users[name] = current_data
+        #users.append(key.encode('ascii', 'ignore'))
+        #usersdata.append(data.encode('ascii', 'ignore'))
+        #users.add(key.encode('ascii', 'ignore'))
+
+    return render_template('admin_page.html', users=users)
+
 
 
 @bp.route('/user/')

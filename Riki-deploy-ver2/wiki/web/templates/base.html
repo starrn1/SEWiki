@@ -30,7 +30,9 @@
 									<li><a href="{{ url_for('wiki.user_login') }}">Login</a></li>
 								{% else %}
 									<li><a href="{{ url_for('wiki.user_logout') }}">Logout</a></li>
-									<li><a href="{{ url_for('wiki.admin') }}">Edit Users</a></li>
+									{% if current_user.get('administrator') %}
+										<li><a href="{{ url_for('wiki.admin_page') }}">Edit Users</a></li>
+									{% endif %}
 								{% endif %}
 							</ul>
 

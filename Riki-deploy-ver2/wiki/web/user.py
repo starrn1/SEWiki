@@ -25,12 +25,15 @@ class UserManager(object):
             data = json.loads(f.read())
         return data
 
+    def get_user_names(self):
+        users = self.read();
+
     def write(self, data):
         with open(self.file, 'w') as f:
             f.write(json.dumps(data, indent=2))
 
     def add_user(self, name, password,
-                 active=True, roles=[], authentication_method=None):
+                 active=True, administrator=False, authentication_method=None):
         users = self.read()
         if users.get(name):
             return False
@@ -38,7 +41,7 @@ class UserManager(object):
             authentication_method = get_default_authentication_method()
         new_user = {
             'active': active,
-            'roles': roles,
+            'administrator': administrator,
             'authentication_method': authentication_method,
             'authenticated': False
         }
@@ -82,8 +85,10 @@ class User(object):
         self.name = name
         self.data = data
 
+
     def get(self, option):
         return self.data.get(option)
+
 
     def set(self, option, value):
         self.data[option] = value

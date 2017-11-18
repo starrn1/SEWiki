@@ -13,6 +13,7 @@ from wtforms.validators import ValidationError
 from wiki.core import clean_url
 from wiki.web import current_wiki
 from wiki.web import current_users
+from wiki.core import Page
 
 
 class URLForm(Form):
@@ -38,6 +39,9 @@ class EditorForm(Form):
     title = TextField('', [InputRequired()])
     body = TextAreaField('', [InputRequired()])
     tags = TextField('')
+
+
+
 
 
 class LoginForm(Form):

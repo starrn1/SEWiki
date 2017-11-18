@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Administrator{% endblock title %}
+{% block content %}
+
+<table class="table">
+		<thead>
+			<tr>
+				<th>Users</th>
+				<th>Private pages</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user,data in users.iteritems() %}
+				<tr>
+					<td>{{user}}</td>
+					<td>{{data}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock content %}
+
+{% block sidebar %}
+<p class="alert alert-success">Thank you for creating new content!</p>
+{% endblock sidebar %}
