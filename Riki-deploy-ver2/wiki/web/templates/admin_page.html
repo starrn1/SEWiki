@@ -2,6 +2,16 @@
 
 {% block title %}Administrator{% endblock title %}
 {% block content %}
+<form class="form-inline well" method="POST">
+			{{ form.hidden_tag() }}
+			{{ form.user_edit(placeholder='Username To Delete', autocomplete="off") }}
+			<input type="submit" class="btn btn-success pull-right" value="Delete User">
+</form>
+
+
+
+
+
 
 <table class="table">
 		<thead>

@@ -6,13 +6,5 @@
     "anonymous": false, 
     "active": true, 
     "password": "1234"
-  }, 
-  "sam": {
-    "administrator": false, 
-    "authenticated": false, 
-    "roles": [], 
-    "authentication_method": "cleartext", 
-    "active": false, 
-    "password": "1234"
   }
 }

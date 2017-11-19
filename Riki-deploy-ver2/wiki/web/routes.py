@@ -14,6 +14,7 @@ from flask_login import login_user
 from flask_login import logout_user
 
 from wiki.core import Processor
+from wiki.web.forms import EditUserForm
 from wiki.web.forms import EditorForm
 from wiki.web.forms import LoginForm
 from wiki.web.forms import SearchForm
@@ -175,20 +176,27 @@ def user_logout():
     flash('Logout successful.', 'success')
     return redirect(url_for('wiki.user_login'))
 
-@bp.route('/admin/')
+@bp.route('/admin/', methods=['GET', 'POST'])
 def admin_page():
+    form = EditUserForm()
+    if form.validate_on_submit():
+        if current_users.get_user(form.user_edit.data):   #todo: !=None maybe
+            if current_users.get_user(form.user_edit.data).name == 'name':
+                flash('cannot delete the original user', 'error')
+            else:
+                current_users.delete_user(form.user_edit.data)
+        else:
+            flash('User not found.', 'error')
+
     users = {}
     x = current_users.read()    #returns a dict object with unicode values
-
     for key, values in x.items():
         name = key.encode('ascii', 'ignore')
         current_data = (values[u'password']).encode('ascii', 'ignore')
         users[name] = current_data
-        #users.append(key.encode('ascii', 'ignore'))
-        #usersdata.append(data.encode('ascii', 'ignore'))
-        #users.add(key.encode('ascii', 'ignore'))
 
-    return render_template('admin_page.html', users=users)
+
+    return render_template('admin_page.html', users=users, form=form)
 
 
 
