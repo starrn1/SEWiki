@@ -90,7 +90,7 @@ def pdf(url):
     pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
     abspath = os.path.abspath("content/pdf/" + url + ".pdf")
     webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
-    return render_template('page.html', page=page)
+    return redirect(url_for('wiki.display', url=url))
 
 def cleanTags(form):
     tags = form.tags.data.encode('utf-8').split(',')

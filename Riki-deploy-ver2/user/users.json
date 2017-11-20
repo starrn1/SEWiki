@@ -1,10 +1,10 @@
 {
   "woah": {
-    "active": true, 
+    "active": false, 
     "authentication_method": "cleartext", 
     "administrator": false, 
     "password": "woah", 
-    "authenticated": true
+    "authenticated": false
   }, 
   "bob": {
     "active": false, 
@@ -22,11 +22,18 @@
   }, 
   "name": {
     "administrator": true, 
-    "authenticated": true, 
+    "authenticated": false, 
     "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
-    "active": true, 
+    "active": false, 
     "password": "1234"
+  }, 
+  "bobby": {
+    "active": true, 
+    "authentication_method": "cleartext", 
+    "administrator": false, 
+    "password": "bob", 
+    "authenticated": true
   }
 }
