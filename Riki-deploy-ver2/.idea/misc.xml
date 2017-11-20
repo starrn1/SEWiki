@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7.13 (C:\Python27\python.exe)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7.14 virtualenv at E:\2017 classes\Software Engineering\project\WIKI" project-jdk-type="Python SDK" />
+>>>>>>> 2bbf2f2e9ea6a9a789b079a1a57c18340db3410c
 </project>
