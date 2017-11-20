@@ -22,11 +22,11 @@
   }, 
   "name": {
     "administrator": true, 
-    "authenticated": false, 
+    "authenticated": true, 
     "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
-    "active": false, 
+    "active": true, 
     "password": "1234"
   }
 }
