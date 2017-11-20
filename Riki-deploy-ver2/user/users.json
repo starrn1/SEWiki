@@ -1,4 +1,11 @@
 {
+  "woah": {
+    "active": true, 
+    "authentication_method": "cleartext", 
+    "administrator": false, 
+    "password": "woah", 
+    "authenticated": true
+  }, 
   "mate": {
     "active": false, 
     "authentication_method": "cleartext", 
@@ -7,12 +14,12 @@
     "authenticated": false
   }, 
   "name": {
-    "administrator": true,
+    "administrator": true, 
     "authenticated": false, 
-    "roles": [],
+    "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
-    "active": true, 
+    "active": false, 
     "password": "1234"
   }
 }
