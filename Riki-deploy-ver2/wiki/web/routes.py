@@ -22,6 +22,10 @@ from wiki.web import current_wiki
 from wiki.web import current_users
 from wiki.web.user import protect
 
+import pypandoc
+import webbrowser
+import config
+import os
 
 bp = Blueprint('wiki', __name__)
 
@@ -74,6 +78,16 @@ def edit(url):
         return redirect(url_for('wiki.display', url=url))
     return render_template('editor.html', form=form, page=page)
 
+@bp.route('/pdf/<path:url>/', methods=['GET'])
+@protect
+def pdf(url):
+    page = current_wiki.get(url)
+    path = page.get_path()
+    output = pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
+    abspath = os.path.abspath("content/pdf/" + url + ".pdf")
+    #webbrowser.open_new_tab(abspath)
+    webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
+    return render_template('page.html', page=page)
 
 @bp.route('/preview/', methods=['POST'])
 @protect
@@ -82,7 +96,6 @@ def preview():
     processor = Processor(request.form['body'])
     data['html'], data['body'], data['meta'] = processor.process()
     return data['html']
-
 
 @bp.route('/move/<path:url>/', methods=['GET', 'POST'])
 @protect

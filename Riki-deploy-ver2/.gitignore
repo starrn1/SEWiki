@@ -8,3 +8,8 @@ content/
 .eggs
 *.egg-info
 dist/
+.idea/*
+.idea/Riki-deploy-ver2.iml
+.idea/misc.xml
+.idea/workspace.xml
+
