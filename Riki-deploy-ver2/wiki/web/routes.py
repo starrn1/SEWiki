@@ -80,7 +80,6 @@ def edit(url):
         return redirect(url_for('wiki.display', url=url))
     return render_template('editor.html', form=form, page=page)
 
-<<<<<<< HEAD
 @bp.route('/pdf/<path:url>/', methods=['GET'])
 @protect
 def pdf(url):
@@ -91,7 +90,7 @@ def pdf(url):
     #webbrowser.open_new_tab(abspath)
     webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
     return render_template('page.html', page=page)
-=======
+
 def cleanTags(form):
     tags = form.tags.data.encode('utf-8').split(',')
     cleantags = tags
@@ -106,7 +105,6 @@ def cleanTags(form):
     for item in cleantags:
         inputstring += item + ','
     return inputstring[:-1]
->>>>>>> 2bbf2f2e9ea6a9a789b079a1a57c18340db3410c
 
 @bp.route('/preview/', methods=['POST'])
 @protect
