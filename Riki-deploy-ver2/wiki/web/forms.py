@@ -15,6 +15,13 @@ from wiki.web import current_wiki
 from wiki.web import current_users
 from wiki.core import Page
 
+class EditUserForm(Form):
+    user_edit = TextField('', [InputRequired()])
+
+
+
+
+
 
 class URLForm(Form):
     url = TextField('', [InputRequired()])

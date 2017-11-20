@@ -14,6 +14,7 @@ from flask_login import login_user
 from flask_login import logout_user
 
 from wiki.core import Processor
+from wiki.web.forms import EditUserForm
 from wiki.web.forms import EditorForm
 from wiki.web.forms import LoginForm
 from wiki.web.forms import SearchForm
@@ -21,9 +22,17 @@ from wiki.web.forms import URLForm
 from wiki.web import current_wiki
 from wiki.web import current_users
 from wiki.web.user import protect
+<<<<<<< HEAD
 from wiki.web.forms import CreateUserForm
 from wiki.web.user import UserManager
 import config
+=======
+
+import pypandoc
+import webbrowser
+import config
+import os
+>>>>>>> 59f54a6e298c30031611262a38e9239f0d3be6eb
 
 bp = Blueprint('wiki', __name__)
 
@@ -77,6 +86,16 @@ def edit(url):
         return redirect(url_for('wiki.display', url=url))
     return render_template('editor.html', form=form, page=page)
 
+@bp.route('/pdf/<path:url>/', methods=['GET'])
+@protect
+def pdf(url):
+    page = current_wiki.get(url)
+    path = page.get_path()
+    pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
+    abspath = os.path.abspath("content/pdf/" + url + ".pdf")
+    webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
+    return render_template('page.html', page=page)
+
 def cleanTags(form):
     tags = form.tags.data.encode('utf-8').split(',')
     cleantags = tags
@@ -99,7 +118,6 @@ def preview():
     processor = Processor(request.form['body'])
     data['html'], data['body'], data['meta'] = processor.process()
     return data['html']
-
 
 @bp.route('/move/<path:url>/', methods=['GET', 'POST'])
 @protect
@@ -176,6 +194,29 @@ def user_logout():
     logout_user()
     flash('Logout successful.', 'success')
     return redirect(url_for('wiki.user_login'))
+
+@bp.route('/admin/', methods=['GET', 'POST'])
+def admin_page():
+    form = EditUserForm()
+    if form.validate_on_submit():
+        if current_users.get_user(form.user_edit.data):   #todo: !=None maybe
+            if current_users.get_user(form.user_edit.data).name == 'name':
+                flash('cannot delete the original user', 'error')
+            else:
+                current_users.delete_user(form.user_edit.data)
+        else:
+            flash('User not found.', 'error')
+
+    users = {}
+    x = current_users.read()    #returns a dict object with unicode values
+    for key, values in x.items():
+        name = key.encode('ascii', 'ignore')
+        current_data = (values[u'password']).encode('ascii', 'ignore')
+        users[name] = current_data
+
+
+    return render_template('admin_page.html', users=users, form=form)
+
 
 
 @bp.route('/user/')

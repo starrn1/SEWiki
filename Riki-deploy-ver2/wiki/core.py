@@ -180,6 +180,9 @@ class Page(object):
         with open(self.path, 'r', encoding='utf-8') as f:
             self.content = f.read()
 
+    def get_path(self):
+        return self.path;
+
     def render(self):
         processor = Processor(self.content)
         self._html, self.body, self._meta = processor.process()
