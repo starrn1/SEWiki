@@ -21,7 +21,9 @@ from wiki.web.forms import URLForm
 from wiki.web import current_wiki
 from wiki.web import current_users
 from wiki.web.user import protect
-
+from wiki.web.forms import CreateUserForm
+from wiki.web.user import UserManager
+import config
 
 bp = Blueprint('wiki', __name__)
 
@@ -148,7 +150,7 @@ def search():
 @bp.route('/user/login/', methods=['GET', 'POST'])
 def user_login():
     if current_user.is_active:
-        return redirect(request.args.get("next") or url_for('wiki.index'))
+        return redirect(request.args.get("next") or url_for('wiki.home'))
 
     form = LoginForm()
     if form.is_submitted():
@@ -163,7 +165,7 @@ def user_login():
                 user.set('authenticated', True)
                 user.set('active', True)
                 flash('Login successful.', 'success')
-                return redirect(request.args.get("next") or url_for('wiki.index'))
+                return redirect(request.args.get("next") or url_for('wiki.home'))
     return render_template('login.html', form=form)
 
 @bp.route('/user/logout/')
@@ -181,9 +183,29 @@ def user_index():
     pass
 
 
-@bp.route('/user/create/')
+@bp.route('/user/create/', methods=['GET', 'POST'])
 def user_create():
-    pass
+    form = CreateUserForm()
+    if form.is_submitted():
+        if form.username.data == '':
+            flash('You must enter a username!', 'error')
+            return render_template('createuser.html', form=form)
+        if form.password.data == '':
+            flash('You must enter a password!','error')
+            return render_template('createuser.html', form=form)
+        um = UserManager(config.USER_DIR)
+        um = UserManager(config.USER_DIR)
+        user = um.add_user(form.username.data, form.password.data)
+        if user == False:
+            flash('That username is already in use!')
+            return render_template('createuser.html', form=form)
+        login_user(user)
+        user.set('authenticated', True)
+        user.set('active', True)
+        flash('Login successful.', 'success')
+        return redirect(request.args.get("next") or url_for('wiki.home'))
+
+    return render_template('createuser.html', form=form)
 
 
 @bp.route('/user/<int:user_id>/')

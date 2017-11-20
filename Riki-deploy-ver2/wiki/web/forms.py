@@ -40,8 +40,9 @@ class EditorForm(Form):
     body = TextAreaField('', [InputRequired()])
     tags = TextField('')
 
-
-
+class CreateUserForm(Form):
+    username = TextField('', [InputRequired(True)])
+    password = TextField('', [InputRequired(True)])
 
 
 class LoginForm(Form):
