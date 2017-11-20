@@ -1,15 +1,11 @@
 {
   "name": {
-<<<<<<< HEAD
-    "authenticated": false, 
-    "roles": [], 
-=======
     "administrator": true, 
     "authenticated": true, 
->>>>>>> 59f54a6e298c30031611262a38e9239f0d3be6eb
+    "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
-    "active": false, 
+    "active": true, 
     "password": "1234"
   }
 }
