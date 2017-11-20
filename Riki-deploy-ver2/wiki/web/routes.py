@@ -85,9 +85,8 @@ def edit(url):
 def pdf(url):
     page = current_wiki.get(url)
     path = page.get_path()
-    output = pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
+    pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
     abspath = os.path.abspath("content/pdf/" + url + ".pdf")
-    #webbrowser.open_new_tab(abspath)
     webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
     return render_template('page.html', page=page)
 
