@@ -7,10 +7,9 @@
     "authenticated": false
   }, 
   "name": {
-    "administrator": true, 
-    "authenticated": true, 
+    "administrator": true,
     "authenticated": false, 
-    "roles": [], 
+    "roles": [],
     "authentication_method": "cleartext", 
     "anonymous": false, 
     "active": true, 
