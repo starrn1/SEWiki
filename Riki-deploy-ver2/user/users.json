@@ -1,17 +1,18 @@
 {
-  "bob": {
-    "active": false, 
-    "authentication_method": "cleartext", 
-    "administrator": false, 
-    "password": "test", 
-    "authenticated": false
   "woah": {
     "active": true, 
     "authentication_method": "cleartext", 
     "administrator": false, 
     "password": "woah", 
     "authenticated": true
-  },
+  }, 
+  "bob": {
+    "active": false, 
+    "authentication_method": "cleartext", 
+    "administrator": false, 
+    "password": "test", 
+    "authenticated": false
+  }, 
   "mate": {
     "active": false, 
     "authentication_method": "cleartext", 
