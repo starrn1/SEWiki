@@ -1,12 +1,15 @@
 {
+  "mate": {
+    "active": false, 
+    "authentication_method": "cleartext", 
+    "administrator": false, 
+    "password": "test", 
+    "authenticated": false
+  }, 
   "name": {
-<<<<<<< HEAD
+    "administrator": true, 
     "authenticated": false, 
     "roles": [], 
-=======
-    "administrator": true, 
-    "authenticated": true, 
->>>>>>> 59f54a6e298c30031611262a38e9239f0d3be6eb
     "authentication_method": "cleartext", 
     "anonymous": false, 
     "active": false, 

@@ -32,12 +32,7 @@ class UserManager(object):
         with open(self.file, 'w') as f:
             f.write(json.dumps(data, indent=2))
 
-    def add_user(self, name, password,
-<<<<<<< HEAD
-                 active=False, roles=[], authentication_method='cleartext'):
-=======
-                 active=True, administrator=False, authentication_method=None):
->>>>>>> 59f54a6e298c30031611262a38e9239f0d3be6eb
+    def add_user(self, name, password, active=False, administrator=False, authentication_method='cleartext'):
         users = self.read()
         if users.get(name):
             return False

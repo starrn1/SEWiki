@@ -22,17 +22,13 @@ from wiki.web.forms import URLForm
 from wiki.web import current_wiki
 from wiki.web import current_users
 from wiki.web.user import protect
-<<<<<<< HEAD
 from wiki.web.forms import CreateUserForm
 from wiki.web.user import UserManager
-import config
-=======
 
 import pypandoc
 import webbrowser
 import config
 import os
->>>>>>> 59f54a6e298c30031611262a38e9239f0d3be6eb
 
 bp = Blueprint('wiki', __name__)
 
