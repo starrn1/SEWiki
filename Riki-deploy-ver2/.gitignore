@@ -8,8 +8,14 @@ content/
 .eggs
 *.egg-info
 dist/
+<<<<<<< HEAD
 .idea/*
 .idea/Riki-deploy-ver2.iml
 .idea/misc.xml
 .idea/workspace.xml
 
+=======
+Riki-deploy-ver2/.idea/misc.xml
+Riki-deploy-ver2/config.py
+Riki-deploy-ver2/.idea/Riki-deploy-ver2.iml
+>>>>>>> 2bbf2f2e9ea6a9a789b079a1a57c18340db3410c

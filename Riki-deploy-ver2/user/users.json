@@ -1,17 +1,10 @@
 {
   "name": {
+    "administrator": true, 
     "authenticated": true, 
-    "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
     "active": true, 
     "password": "1234"
-  }, 
-  "sam": {
-    "active": true, 
-    "authentication_method": "cleartext", 
-    "password": "1234", 
-    "authenticated": true, 
-    "roles": []
   }
 }
