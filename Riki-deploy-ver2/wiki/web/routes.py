@@ -22,7 +22,13 @@ from wiki.web.forms import URLForm
 from wiki.web import current_wiki
 from wiki.web import current_users
 from wiki.web.user import protect
-
+from wiki.web.forms import CreateUserForm
+from wiki.web.user import UserManager
+import config
+import pypandoc
+import webbrowser
+import config
+import os
 
 bp = Blueprint('wiki', __name__)
 
@@ -76,6 +82,16 @@ def edit(url):
         return redirect(url_for('wiki.display', url=url))
     return render_template('editor.html', form=form, page=page)
 
+@bp.route('/pdf/<path:url>/', methods=['GET'])
+@protect
+def pdf(url):
+    page = current_wiki.get(url)
+    path = page.get_path()
+    pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
+    abspath = os.path.abspath("content/pdf/" + url + ".pdf")
+    webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
+    return redirect(url_for('wiki.display', url=url))
+
 def cleanTags(form):
     tags = form.tags.data.encode('utf-8').split(',')
     cleantags = tags
@@ -98,7 +114,6 @@ def preview():
     processor = Processor(request.form['body'])
     data['html'], data['body'], data['meta'] = processor.process()
     return data['html']
-
 
 @bp.route('/move/<path:url>/', methods=['GET', 'POST'])
 @protect
@@ -149,7 +164,7 @@ def search():
 @bp.route('/user/login/', methods=['GET', 'POST'])
 def user_login():
     if current_user.is_active:
-        return redirect(request.args.get("next") or url_for('wiki.index'))
+        return redirect(request.args.get("next") or url_for('wiki.home'))
 
     form = LoginForm()
     if form.is_submitted():
@@ -164,7 +179,7 @@ def user_login():
                 user.set('authenticated', True)
                 user.set('active', True)
                 flash('Login successful.', 'success')
-                return redirect(request.args.get("next") or url_for('wiki.index'))
+                return redirect(request.args.get("next") or url_for('wiki.home'))
     return render_template('login.html', form=form)
 
 @bp.route('/user/logout/')
@@ -187,7 +202,7 @@ def admin_page():
                 current_users.delete_user(form.user_edit.data)
         else:
             flash('User not found.', 'error')
-
+    form.user_edit.data = ''
     users = {}
     x = current_users.read()    #returns a dict object with unicode values
     for key, values in x.items():
@@ -205,9 +220,29 @@ def user_index():
     pass
 
 
-@bp.route('/user/create/')
+@bp.route('/user/create/', methods=['GET', 'POST'])
 def user_create():
-    pass
+    form = CreateUserForm()
+    if form.is_submitted():
+        if form.username.data == '':
+            flash('You must enter a username!', 'error')
+            return render_template('createuser.html', form=form)
+        if form.password.data == '':
+            flash('You must enter a password!','error')
+            return render_template('createuser.html', form=form)
+        um = UserManager(config.USER_DIR)
+        um = UserManager(config.USER_DIR)
+        user = um.add_user(form.username.data, form.password.data)
+        if user == False:
+            flash('That username is already in use!')
+            return render_template('createuser.html', form=form)
+        login_user(user)
+        user.set('authenticated', True)
+        user.set('active', True)
+        flash('Login successful.', 'success')
+        return redirect(request.args.get("next") or url_for('wiki.home'))
+
+    return render_template('createuser.html', form=form)
 
 
 @bp.route('/user/<int:user_id>/')

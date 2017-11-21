@@ -8,6 +8,10 @@ content/
 .eggs
 *.egg-info
 dist/
+.idea/*
+.idea/workspace.xml
 Riki-deploy-ver2/.idea/misc.xml
 Riki-deploy-ver2/config.py
 Riki-deploy-ver2/.idea/Riki-deploy-ver2.iml
+Riki-deploy-ver2/.idea/workspace.xml
+

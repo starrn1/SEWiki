@@ -28,6 +28,7 @@
 							<ul class="nav pull-right">
 								{% if not current_user.is_active %}
 									<li><a href="{{ url_for('wiki.user_login') }}">Login</a></li>
+									<li><a href="{{url_for('wiki.user_create') }}">Create Account</a></li>
 								{% else %}
 									<li><a href="{{ url_for('wiki.user_logout') }}">Logout</a></li>
 									{% if current_user.get('administrator') %}
