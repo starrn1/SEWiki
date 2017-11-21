@@ -7,6 +7,8 @@ import json
 import binascii
 import hashlib
 from functools import wraps
+import time
+import datetime
 
 from flask import current_app
 from flask_login import current_user
@@ -34,11 +36,13 @@ class UserManager(object):
 
     def add_user(self, name, password, active=False, administrator=False, authentication_method='cleartext'):
         users = self.read()
+        creation_time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
         if users.get(name):
             return False
         if authentication_method is None:
             authentication_method = get_default_authentication_method()
         new_user = {
+            'creation_time': creation_time,
             'active': active,
             'administrator': administrator,
             'authentication_method': authentication_method,
