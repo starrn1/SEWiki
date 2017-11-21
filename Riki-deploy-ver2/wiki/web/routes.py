@@ -207,7 +207,7 @@ def admin_page():
     x = current_users.read()    #returns a dict object with unicode values
     for key, values in x.items():
         name = key.encode('ascii', 'ignore')
-        current_data = (values[u'creation_date']).encode('ascii', 'ignore')
+        current_data = (values[u'creation_time']).encode('ascii', 'ignore')
         users[name] = current_data
 
 

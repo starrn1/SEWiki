@@ -1,20 +1,23 @@
 {
   "woah": {
-    "active": false, 
+    "active": false,
+    "creation_time": "2011/10/05 00:20:30",
     "authentication_method": "cleartext", 
     "administrator": false, 
     "password": "woah", 
     "authenticated": false
   }, 
   "bob": {
-    "active": false, 
+    "active": false,
+    "creation_time": "2013/10/05 00:20:30",
     "authentication_method": "cleartext", 
     "administrator": false, 
     "password": "test", 
     "authenticated": false
   }, 
   "mate": {
-    "active": false, 
+    "active": false,
+    "creation_time": "2013/12/04 00:21:30",
     "authentication_method": "cleartext", 
     "administrator": false, 
     "password": "test", 
@@ -22,7 +25,8 @@
   }, 
   "name": {
     "administrator": true, 
-    "authenticated": false, 
+    "authenticated": false,
+    "creation_time": "2013/10/05 00:19:30",
     "roles": [], 
     "authentication_method": "cleartext", 
     "anonymous": false, 
@@ -30,7 +34,8 @@
     "password": "1234"
   }, 
   "bobby": {
-    "active": true, 
+    "active": true,
+    "creation_time": "2013/10/05 00:10:30",
     "authentication_method": "cleartext", 
     "administrator": false, 
     "password": "bob", 
