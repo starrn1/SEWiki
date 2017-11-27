@@ -1,13 +1,15 @@
 {
   "name": {
-    "active": true, 
+    "active": true,
+    "creation_time": "2013/10/05 00:20:30",
     "authentication_method": "cleartext", 
     "password": "1234", 
     "authenticated": true, 
     "roles": []
   }, 
   "sam": {
-    "active": true, 
+    "active": true,
+    "creation_time": "2013/10/05 00:20:30",
     "authentication_method": "cleartext", 
     "password": "1234", 
     "authenticated": true, 
