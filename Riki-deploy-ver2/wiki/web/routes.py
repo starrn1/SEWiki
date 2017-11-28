@@ -86,6 +86,8 @@ def edit(url):
 @protect
 def pdf(url):
     page = current_wiki.get(url)
+    if page is None:
+        return redirect(url_for('wiki.home'))
     path = page.get_path()
     pypandoc.convert_file(path, 'pdf', outputfile="content/pdf/" + url + ".pdf")
     abspath = os.path.abspath("content/pdf/" + url + ".pdf")
