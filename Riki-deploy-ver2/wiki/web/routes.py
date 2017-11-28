@@ -209,10 +209,7 @@ def admin_page():
         name = key.encode('ascii', 'ignore')
         current_data = (values[u'creation_time']).encode('ascii', 'ignore')
         users[name] = current_data
-
-
     return render_template('admin_page.html', users=users, form=form)
-
 
 
 @bp.route('/user/')

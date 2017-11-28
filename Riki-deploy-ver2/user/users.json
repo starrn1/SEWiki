@@ -1,54 +1,44 @@
 {
-<<<<<<< HEAD
+  "woah": {
+    "administrator": false, 
+    "authenticated": false, 
+    "authentication_method": "cleartext", 
+    "creation_time": "2011/10/05 00:20:30", 
+    "active": false, 
+    "password": "woah"
+  }, 
+  "bob": {
+    "administrator": false, 
+    "authenticated": false, 
+    "authentication_method": "cleartext", 
+    "creation_time": "2013/10/05 00:20:30", 
+    "active": false, 
+    "password": "test"
+  }, 
+  "mate": {
+    "administrator": false, 
+    "authenticated": false, 
+    "authentication_method": "cleartext", 
+    "creation_time": "2013/12/04 00:21:30", 
+    "active": false, 
+    "password": "test"
+  }, 
   "name": {
     "administrator": true, 
     "authenticated": true, 
-=======
-  "woah": {
-    "active": false,
-    "creation_time": "2011/10/05 00:20:30",
-    "authentication_method": "cleartext", 
-    "administrator": false, 
-    "password": "woah", 
-    "authenticated": false
-  }, 
-  "bob": {
-    "active": false,
-    "creation_time": "2013/10/05 00:20:30",
-    "authentication_method": "cleartext", 
-    "administrator": false, 
-    "password": "test", 
-    "authenticated": false
-  }, 
-  "mate": {
-    "active": false,
-    "creation_time": "2013/12/04 00:21:30",
-    "authentication_method": "cleartext", 
-    "administrator": false, 
-    "password": "test", 
-    "authenticated": false
-  }, 
-  "name": {
-    "administrator": true, 
-    "authenticated": false,
-    "creation_time": "2013/10/05 00:19:30",
->>>>>>> e76253f58d0929fed3cb03393da327c87a41245b
     "roles": [], 
     "authentication_method": "cleartext", 
+    "creation_time": "2013/10/05 00:19:30", 
     "anonymous": false, 
     "active": true, 
     "password": "1234"
   }, 
   "bobby": {
-<<<<<<< HEAD
-    "active": false, 
-=======
-    "active": true,
-    "creation_time": "2013/10/05 00:10:30",
->>>>>>> e76253f58d0929fed3cb03393da327c87a41245b
-    "authentication_method": "cleartext", 
     "administrator": false, 
-    "password": "bob", 
-    "authenticated": false
+    "authenticated": false, 
+    "authentication_method": "cleartext", 
+    "creation_time": "2013/10/05 00:10:30", 
+    "active": true, 
+    "password": "bob"
   }
 }
