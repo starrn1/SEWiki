@@ -9,7 +9,7 @@ def convert(file):
     file = os.path.join(config.CONTENT_DIR, file)
     pypandoc.convert_file(file, 'pdf', outputfile="content/pdf/" + output + ".pdf")
     abspath = os.path.abspath(config.CONTENT_DIR + "/pdf/"  + output + ".pdf")
-    webbrowser.open_new(abspath)
+    webbrowser.get(config.BROWSER_PATH).open_new_tab(abspath)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-p', '--pdf', help='PDF Conversion')
