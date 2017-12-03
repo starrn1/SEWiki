@@ -16,7 +16,7 @@
     "password": "test"
   }, 
   "mate": {
-    "administrator": false, 
+    "administrator": true, 
     "authenticated": false, 
     "authentication_method": "cleartext", 
     "creation_time": "2013/12/04 00:21:30", 

@@ -12,7 +12,6 @@ from flask_login import current_user
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
-
 from wiki.core import Processor
 from wiki.web.forms import EditUserForm
 from wiki.web.forms import EditorForm
@@ -24,14 +23,12 @@ from wiki.web import current_users
 from wiki.web.user import protect
 from wiki.web.forms import CreateUserForm
 from wiki.web.user import UserManager
-import config
 import pypandoc
 import webbrowser
 import config
 import os
 
 bp = Blueprint('wiki', __name__)
-
 
 @bp.route('/')
 @protect
@@ -195,11 +192,13 @@ def user_logout():
 
 @bp.route('/admin/', methods=['GET', 'POST'])
 def admin_page():
+    if not current_user.get('administrator'):
+        return redirect(request.args.get("next") or url_for('wiki.home'))
     form = EditUserForm()
     if form.validate_on_submit():
         if current_users.get_user(form.user_edit.data):   #todo: !=None maybe
-            if current_users.get_user(form.user_edit.data).name == 'name':
-                flash('cannot delete the original user', 'error')
+            if current_users.get_user(form.user_edit.data).get('administrator'):
+                flash('Cannot delete administrators.', 'error')
             else:
                 current_users.delete_user(form.user_edit.data)
         else:
@@ -229,7 +228,6 @@ def user_create():
         if form.password.data == '':
             flash('You must enter a password!','error')
             return render_template('createuser.html', form=form)
-        um = UserManager(config.USER_DIR)
         um = UserManager(config.USER_DIR)
         user = um.add_user(form.username.data, form.password.data)
         if user == False:

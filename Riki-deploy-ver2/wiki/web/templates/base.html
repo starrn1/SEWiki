@@ -32,7 +32,7 @@
 								{% else %}
 									<li><a href="{{ url_for('wiki.user_logout') }}">Logout</a></li>
 									{% if current_user.get('administrator') %}
-										<li><a href="{{ url_for('wiki.admin_page') }}">Edit Users</a></li>
+										<li><a href="{{ url_for('wiki.admin_page') }}">Admin</a></li>
 									{% endif %}
 								{% endif %}
 							</ul>
