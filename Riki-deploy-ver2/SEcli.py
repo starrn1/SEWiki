@@ -16,6 +16,7 @@ def convert(file):
         return "The given file does not exist."
 
 def smartDelete(file):
+    # We needed to figure out if the user passed in a .md or a .pdf file so we needed to split at the period
     fileSplit = file.split('.')
     if (fileSplit[1] == "pdf"):
         file = os.path.join(config.CONTENT_DIR + "/pdf/", file)
@@ -27,6 +28,7 @@ def smartDelete(file):
     elif (fileSplit[1] == "md"):
         file = os.path.join(config.CONTENT_DIR, file)
         if os.path.isfile(file):
+            # Needed to check if a .pdf file exists with the same filename
             pdfFile = os.path.join(config.CONTENT_DIR + "/pdf/", fileSplit[0] + ".pdf")
             if (os.path.isfile(pdfFile)):
                 os.remove(pdfFile)
@@ -37,6 +39,7 @@ def smartDelete(file):
                 return "The markdown file was successfully deleted."
         else:
             return "The given markdown file does not exist."
+    # If the file extension is not the .pdf or .md provide a message for the user to know what to enter
     else:
         return "Please enter an existing PDF or markdown file name."
 
